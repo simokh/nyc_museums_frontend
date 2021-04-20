@@ -1,0 +1,23 @@
+    let bodyData = {review, rating}
+          
+            fetch(endPoint, {
+              // POST request
+              method: "POST",
+              headers: {"Content-Type": "application/json"},
+              body: JSON.stringify(bodyData)
+            })
+            .then(response => response.json())
+            .then(review => {
+              console.log(review);
+              const reviewData = review.data
+              // render JSON response
+              const reviewMarkup = `
+            <div data-id=${review.id}> 
+            <h3>Review: ${review.attributes.review}</h3>
+            <h4>Rating: ${review.attributes.rating}</h4>
+            <button data-id=${review.id}>delete</button>
+              </div>
+              <br><br>`;
+          
+              document.querySelector('#syllabus-container').innerHTML += reviewMarkup;
+            })

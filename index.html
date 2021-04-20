@@ -21,7 +21,39 @@
         <div id="review-container"></div>
 
 
-        
+        <div class="form-container">
+
+            <form id="write-review-form" style="" action="http://localhost:3000/api/v1/reviews" method="POST">
+            <h3>Write a review!</h3>
+
+            <br><br>
+            <textarea id='input-review' name="review" rows="8" cols="80" value="" placeholder="Enter your review..."></textarea>
+            <br><br>
+
+            <select id="museum_id" name="museum">
+            <option value="Metropolitan Museum of Art">Metropolitan Museum of Art</option>
+            <option value="American Museum of Natural History">American Museum of Natural History</option>
+            <option value="Brooklyn Museum">Brooklyn Museum</option>
+            <option value="Brooklyn Museum">Brooklyn Museum</option>
+            <option value="El Museo del Barrio">El Museo del Barrio</option>
+            </select>
+
+            <br>
+
+            <select id="rating" name="Rate Museum">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            </select>
+            <br><br>
+
+            <input id= 'create-button' type="submit" name="submit" value="Submit a Review" class="submit">
+            </form>
+
+        </div>
+
         <script src="" async defer></script>
     </body>
 </html>
