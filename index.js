@@ -19,37 +19,60 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         console.log("i am working");
 
-        const rev = document.querySelector('#input-review').value
+        const review_post = document.querySelector('#input-review').value
         const rate = document.querySelector('#rating').value
-        const museum = document.querySelector('#museum_id').value
+        const museum_id = document.querySelector('#museum_id').value
+        const rating = parseInt(rate)     
 
-
-        postReview(rev, rate, museum)
+        postReview(review_post, rating, museum_id)
     }
 
-    function postReview(rev, rate, museum) {
+    function postReview(review_post, rate, museumId) {
         // confirm these values are coming through properly
-        console.log(rev, rate, museum);
+        console.log(review_post, rate, museumId);
         // build body object
         // let bodyData = {rev, rate, museum}
-      
-        fetch(endPoint2, {
-        //   // POST request
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
 
+        fetch(endPoint2, {
+            method: "POST", 
+            headers: {
+                "content-Type": "application/json",
+                "Accept": "application/json"
             },
-          body: JSON.stringify({
-              rev,
-              rate,
-              museum
-          })
-            })
-            .then(response => response.json())
-            .then(review_museum => {
-                console.log(review_museum);
+            body: JSON.stringify({
+                review:review_post,
+                rating:rate,
+                museum_id:museumId
+            })   
+        })
+        .then(res => res.json())
+        .then(review_museum => {
+            console.log(review_museum);
+        })
+
+    }
+
+
+
+
+
+
+        // fetch(endPoint2, {
+        // //   // POST request
+        //   method: "POST",
+        //   headers: {
+        //       "Content-Type": "application/json",
+        //       "Accept": "application/json"
+        //     },
+        //   body: JSON.stringify({
+        //       review: review,
+        //       rating: rate,
+        //       museum_id: museum_id
+        //   })
+        //     })
+        //     .then(response => response.json())
+        //     .then(review_museum => {
+        //         console.log(review_museum);
     //             const reviewData = review_museum.data
     //     //   // render JSON response
     //             const reviewMarkup = `
@@ -61,8 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     //     //   <br><br>`;
       
     //       document.querySelector('#review-container').innerHTML += reviewMarkup;
-        })
-      }
+
     
 
 
