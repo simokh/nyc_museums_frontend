@@ -19,19 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         console.log("i am working");
 
-        const review_post = document.querySelector('#input-review').value
+        const reviewInput = document.querySelector('#review-post').value
         const rate = document.querySelector('#rating').value
-        const museum_id = document.querySelector('#museum_id').value
-        const rating = parseInt(rate)     
+        const museum_id= document.querySelector('#museum-id').value
+        const ratingInput = parseInt(rate)
+        const museumInput = parseInt(museum_id)  
 
-        postReview(review_post, rating, museum_id)
+        postReview(reviewInput, ratingInput, museumInput)
     }
 
-    function postReview(review_post, rate, museumId) {
+    function postReview(review_post, rating, museum_id) {
         // confirm these values are coming through properly
-        console.log(review_post, rate, museumId);
+        console.log(review_post, rating, museum_id);
         // build body object
-        // let bodyData = {rev, rate, museum}
+        let bodyData = {review_post, rating, museum_id}
 
         fetch(endPoint2, {
             method: "POST", 
@@ -39,15 +40,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 "content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify({
-                review:review_post,
-                rating:rate,
-                museum_id:museumId
-            })   
-        })
+            body: JSON.stringify(bodyData)
+    })
+
         .then(res => res.json())
-        .then(review_museum => {
-            console.log(review_museum);
+        .then(review => {
+            console.log(review);
+
+                const reviewData = review.data
+        //   // render JSON response
+                const reviewMarkup = `
+                <div data-id=${review.id}> 
+                    <h3>Review: ${reviewData.attributes.review_post}</h3>
+                    <h4>Rating: ${reviewData.attributes.rating}</h4>
+                    <button data-id=${reviewData.id}>delete</button>
+        //   </div>
+        //   <br><br>`;
+      
+          document.querySelector('#review-container').innerHTML += reviewMarkup;
         })
 
     }
