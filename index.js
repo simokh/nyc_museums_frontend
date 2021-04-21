@@ -50,9 +50,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const reviewData = review.data
         //   // render JSON response
                 const reviewMarkup = `
-                <div data-id=${review.id}> 
+                <div data-id=${review.id}>
+                    <h4>Musuem: ${reviewData.attributes.museum.name}</h4>
                     <h3>Review: ${reviewData.attributes.review_post}</h3>
-                    <h4>Rating: ${reviewData.attributes.rating}</h4>
+                    <h3>Rating: ${reviewData.attributes.rating}</h3>
                     <button data-id=${reviewData.id}>delete</button>
         //   </div>
         //   <br><br>`;
