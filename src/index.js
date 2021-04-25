@@ -1,5 +1,7 @@
 const endPoint = "http://localhost:3000/api/v1/museums";
-const endPoint2 = "http://localhost:3000/api/v1/reviews"
+const endPoint2 = "http://localhost:3000/api/v1/reviews";
+// const endPoint3 = `"http://localhost:3000/api/v1/reviews/${review.id}"`
+
 
 
 
@@ -13,13 +15,46 @@ document.addEventListener('DOMContentLoaded', () => {
     
     writeReview.addEventListener("submit", (e) => formHandler(e))
 
+    dReview = document.querySelector("#review-container")
+    dReview.addEventListener("click", (e) => deleteFormHandler(e))
 
-    })
+})
+
+    function deleteFormHandler(e) {
+        e.preventDefault()
+        const id = parseInt(e.target.dataset.id);
+        const review = Review.findReview(id);
+        console.log("yo i am here")
+        // debugger
+        // const reviewInput = e.target.querySelector('#review-post').value;
+        // const rate = e.target.querySelector('#rating').value;
+        // const museum_id= e.target.querySelector('#museum-id').value;
+        // const ratingInput = parseInt(rate);
+        // const museumInput = parseInt(museum_id);  
+
+        deleteReview(review)
+    }
+
+    function deleteReview(review) {
+        // console.log(review);
+
+        let clickedReview = {review}
+        fetch(`http://localhost:3000/api/v1/reviews/${review.id}`, {
+            method: "DELETE",
+            headers: {
+                "content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(clickedReview)
+        })
+        .then(res => res.json())
+        .then(clickedReview => console.log(clickedReview))
+        // debugger
+}
 
     function formHandler(e) {
         e.preventDefault()
-        console.log("i am working");
-
+        console.log("yo you are clicking!")
         const reviewInput = document.querySelector('#review-post').value
         const rate = document.querySelector('#rating').value
         const museum_id= document.querySelector('#museum-id').value
@@ -63,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newReview = new Review(reviewData.id, reviewData)
                 document.querySelector('#review-container').innerHTML += newReview.renderReviewPost()
       
-                document.querySelector('#review-container').innerHTML += reviewMarkup;
+                // document.querySelector('#review-container').innerHTML += reviewMarkup;
                 document.getElementById('write-review-form').reset();
 
         })
@@ -94,8 +129,6 @@ function getReview(){
         
 }
 
-
-
 //     function getMuseum() {
 //         fetch(endPoint)
 //         .then(res => res.json())
@@ -113,10 +146,4 @@ function getReview(){
 //                 document.querySelector('#museum-container').innerHTML += museumsMarkup
                 
 //             })
-//     })
-    
 // }
-        
-
-    
-// 

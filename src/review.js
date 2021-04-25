@@ -19,9 +19,15 @@ class Review {
         <button data-id=${this.id}>delete</button>
         <br><br>`; 
     }
+
+    static findReview(id) {
+        return this.all.find( review => review.id == id);
+    }
 }
 
 Review.all = [];
+
+
 
 
 
