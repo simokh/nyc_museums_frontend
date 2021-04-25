@@ -17,6 +17,7 @@ class Review {
         <h3>Review: ${this.review_post}</h3>
         <h3>Rating: ${this.rating}</h3>
         <button data-id=${this.id}>delete</button>
+        </div>
         <br><br>`; 
     }
 

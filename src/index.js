@@ -1,6 +1,5 @@
 const endPoint = "http://localhost:3000/api/v1/museums";
 const endPoint2 = "http://localhost:3000/api/v1/reviews";
-// const endPoint3 = `"http://localhost:3000/api/v1/reviews/${review.id}"`
 
 
 
@@ -8,49 +7,29 @@ const endPoint2 = "http://localhost:3000/api/v1/reviews";
 document.addEventListener('DOMContentLoaded', () => {
 
     // getMuseum()
-    getReview()
-
+    
 
     const writeReview = document.querySelector("#write-review-form")
     
     writeReview.addEventListener("submit", (e) => formHandler(e))
 
     dReview = document.querySelector("#review-container")
-    dReview.addEventListener("click", (e) => deleteFormHandler(e))
+    dReview.addEventListener("click", (e) => deleteHandler(e))
+
+    getReview()
 
 })
-
-    function deleteFormHandler(e) {
+    // delete review function fetch request to BE destroy action 
+    function deleteHandler(e) {
         e.preventDefault()
         const id = parseInt(e.target.dataset.id);
         const review = Review.findReview(id);
-        console.log("yo i am here")
-        // debugger
-        // const reviewInput = e.target.querySelector('#review-post').value;
-        // const rate = e.target.querySelector('#rating').value;
-        // const museum_id= e.target.querySelector('#museum-id').value;
-        // const ratingInput = parseInt(rate);
-        // const museumInput = parseInt(museum_id);  
-
-        deleteReview(review)
+        fetch(`http://localhost:3000/api/v1/reviews/${review.id}`, {
+            method: "DELETE",    
+        })
+        this.location.reload()
     }
 
-    function deleteReview(review) {
-        // console.log(review);
-
-        let clickedReview = {review}
-        fetch(`http://localhost:3000/api/v1/reviews/${review.id}`, {
-            method: "DELETE",
-            headers: {
-                "content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(clickedReview)
-        })
-        .then(res => res.json())
-        .then(clickedReview => console.log(clickedReview))
-        // debugger
-}
 
     function formHandler(e) {
         e.preventDefault()
@@ -63,7 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         postReview(reviewInput, ratingInput, museumInput)
     }
-
+    
+    // creating a review by fetch request to BE via the create action
     function postReview(review_post, rating, museum_id) {
         // confirm these values are coming through properly
         console.log(review_post, rating, museum_id);
@@ -81,31 +61,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
         .then(res => res.json())
         .then(review => {
-            console.log(review);
+            // console.log(review);
 
                 const reviewData = review.data.attributes
-        //   // render JSON response
-        //         const reviewMarkup = `
-        //         <div data-id=${review.id}>
-        //             <img src=${reviewData.museum.img_url} height= "200" width="">
-        //             <h4>Musuem: ${reviewData.museum.name}</h4>
-        //             <h3>Review: ${reviewData.review_post}</h3>
-        //             <h3>Rating: ${reviewData.rating}</h3>
-        //             <button data-id=${reviewData.id}>delete</button>
-        //    </div>
-        //    <br><br>`;
-
                 const newReview = new Review(reviewData.id, reviewData)
-                document.querySelector('#review-container').innerHTML += newReview.renderReviewPost()
-      
-                // document.querySelector('#review-container').innerHTML += reviewMarkup;
-                document.getElementById('write-review-form').reset();
-
+                document.querySelector('#review-container').innerHTML += newReview.renderReviewPost(); 
+                this.location.reload()
         })
-
     }
 
-
+// indexing reviews 
 function getReview(){
     fetch(endPoint2)
     .then(res => res.json())
@@ -121,7 +86,8 @@ function getReview(){
             // </div>    
             // <br>`; 
             const newReview = new Review(review.id, review.attributes)
-            document.querySelector('#review-container').innerHTML += newReview.renderReviewPost()
+            // debugger
+            document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
 
         })       
            
@@ -129,21 +95,24 @@ function getReview(){
         
 }
 
-//     function getMuseum() {
-//         fetch(endPoint)
-//         .then(res => res.json())
-//         .then(museums => {
-//             // debugger
-//             museums.data.forEach(museum =>  {
-//                 const museumsMarkup = `
-//                 <div data-id=${museum.id}>
-//                 <img src=${museum.attributes.img_url} 
-//                 height= "200" width="">
-//                 <h4>${museum.attributes.name}</h4>
-//                 <h3>${museum.attributes.borough}</h3>
-//                 </div>
-//                 <br>`;
-//                 document.querySelector('#museum-container').innerHTML += museumsMarkup
+
+// indexing museums
+    // function getMuseum() {
+    //     fetch(endPoint)
+    //     .then(res => res.json())
+    //     .then(museums => {
+    //         // debugger
+    //         museums.data.forEach(museum =>  {
+    //             const museumsMarkup = `
+    //             <div data-id=${museum.id}>
+    //             <img src=${museum.attributes.img_url} 
+    //             height= "200" width="">
+    //             <h4>${museum.attributes.name}</h4>
+    //             <h3>${museum.attributes.borough}</h3>
+    //             </div>
+    //             <br>`;
+    //             document.querySelector('#museum-container').innerHTML += museumsMarkup
                 
-//             })
-// }
+    //         })
+    //     })
+    // }
