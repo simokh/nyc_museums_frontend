@@ -1,5 +1,5 @@
 const endPoint = "http://localhost:3000/api/v1/museums";
-const endPoint2 = "http://localhost:3000/api/v1/reviews";
+const endPoint2 = "http://localhost:3000/api/v1/reviews/";
 
 
 
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     writeReview.addEventListener("submit", (e) => formHandler(e))
 
-    dReview = document.querySelector("#review-container")
+    const dReview = document.querySelector("#review-container")
     dReview.addEventListener("click", (e) => deleteHandler(e))
 
     getReview()
@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function deleteHandler(e) {
         e.preventDefault()
         const id = parseInt(e.target.dataset.id);
-        const review = Review.findReview(id);
-        fetch(`http://localhost:3000/api/v1/reviews/${review.id}`, {
+        const review = Review.findReview(id).id;
+        // debugger
+        fetch ((endPoint2 + review), { 
             method: "DELETE",    
         })
         this.location.reload()
@@ -50,23 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
         // build body object
         let bodyData = {review_post, rating, museum_id}
 
-        fetch(endPoint2, {
+        fetch((endPoint2),{
             method: "POST", 
             headers: {
                 "content-Type": "application/json",
                 "Accept": "application/json"
             },
-            body: JSON.stringify(bodyData)
+            body: JSON.stringify(bodyData)   
     })
 
         .then(res => res.json())
         .then(review => {
-            // console.log(review);
-
+            console.log(review)
                 const reviewData = review.data.attributes
                 const newReview = new Review(reviewData.id, reviewData)
                 document.querySelector('#review-container').innerHTML += newReview.renderReviewPost(); 
                 this.location.reload()
+                
         })
     }
 
@@ -86,7 +87,6 @@ function getReview(){
             // </div>    
             // <br>`; 
             const newReview = new Review(review.id, review.attributes)
-            // debugger
             document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
 
         })       
