@@ -5,30 +5,28 @@ const dReview = document.querySelector("#review-container")
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // getMuseum()
+    getMuseum()
     
 
     const writeReview = document.querySelector("#write-review-form")
     
-    writeReview.addEventListener("submit", (e) => formHandler(e))
+    writeReview.addEventListener("submit", formHandler) 
 
-    // const dReview = document.querySelector("#review-container")
     dReview.addEventListener("click", deleteHandler)
 
     getReview()
 
 })
     // delete review function fetch request to BE destroy action 
-    function deleteHandler(e) {
-        e.preventDefault()
+    function deleteHandler(e) { 
         const id = parseInt(e.target.dataset.id);
         const review = Review.findReview(id);
         // debugger
         fetch((`http://localhost:3000/api/v1/reviews/${review.id}`), { 
             method: "DELETE",    
         })
-        let ele = document.querySelector('[data-id]')
-        dReview.removeChild(ele).innerHTML
+        const ele = document.querySelector('[data-id]')
+        dReview.removeChild(ele)
     }
 
 
@@ -61,13 +59,12 @@ document.addEventListener('DOMContentLoaded', () => {
     })
         .then(res => res.json())
         .then( review => {
-                // debugger 
                 const reviewData = review.data.attributes
-                const newReview = new Review(reviewData.id, reviewData)
-                // debugger
-                
-                document.querySelector('#review-container').innerHTML += newReview.renderReviewPost(); 
-                this.location.reload()        
+                const reviewID = review.data.id
+                const newReview = new Review(reviewID, reviewData)
+                document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
+                const refreshForm = document.getElementById('write-review-form') 
+                refreshForm.reset()
         })
     }
 
@@ -77,52 +74,38 @@ function getReview(){
     .then(res => res.json())
     .then(reviews => {
         reviews.data.forEach(review =>{
-            // debugger
-            // const reviewsMarkup = `
-            // <div data-id=${review.id}>
-            // <img src=${review.attributes.museum.img_url} height= "200" width="">
-
-            // <h3>Review: ${review.attributes.review_post}</h3>
-            // <h4>Rating: ${review.attributes.rating}</h4>
-            // <button data-id=${review.id}>delete</button>
-
-            // </div>    
-            // <br>`; 
             const newReview = new Review(review.id, review.attributes)
-            document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
-            // document.querySelector('#review-container').innerHTML += reviewsMarkup;
-
-
+            document.querySelector('#review-container').innerHTML += newReview.renderReviewPost()
         })       
-           
-    })            
-        
+    })     
 }
 
 
-// indexing museums
-    // function getMuseum() {
-    //     fetch(endPoint)
-    //     .then(res => res.json())
-    //     .then(museums => {
+function getMuseum() {
+    fetch(endPoint)
+    .then(res => res.json())
+    .then(museums => {
     //         // debugger
-    //         museums.data.forEach(museum =>  {
-    //             const museumsMarkup = `
-    //             <div data-id=${museum.id}>
-    //             <img src=${museum.attributes.img_url} 
-    //             height= "200" width="">
-    //             <h4>${museum.attributes.name}</h4>
-    //             <h3>${museum.attributes.borough}</h3>
-    //             </div>
-    //             <br>`;
-    //             document.querySelector('#museum-container').innerHTML += museumsMarkup
-                
-    //         })
-    //     })
-    // }
+        museums.data.forEach(museum =>  {
+            const mus = document.getElementById('museum-id')
+            const ele = document.createElement('option')
+            ele.value = museum.id 
+            ele.innerText = museum.attributes.name
+            mus.append(ele)
+        })
+    })
+}
 
+
+// var is globaly scoped 
+// let and const are not
 
 // if (true) {
 //     var name = "simo"
 // }
 // console.log(name)
+
+// console.log(this)  => Window 
+
+
+

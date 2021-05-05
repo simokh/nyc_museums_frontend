@@ -1,4 +1,7 @@
 class Review {
+    
+    static all = []
+
     constructor(id, reviewAttri) {
         this.id = id;
         // debugger 
@@ -6,6 +9,8 @@ class Review {
         this.museum = reviewAttri.museum.name
         this.review_post = reviewAttri.review_post
         this.rating = reviewAttri.rating
+        // debugger
+
         Review.all.push(this)
     }
 
@@ -25,13 +30,6 @@ class Review {
         return this.all.find( review => review.id == id);
     }
 }
-
-Review.all = [];
-
-
-
-
-
 
 
 
