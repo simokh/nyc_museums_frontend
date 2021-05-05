@@ -12,8 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script type="text/javascript" src="src/review.js"></script>
-        <script type="text/javascript" src="src/index.js"></script>
+
 
     </head>
 
@@ -26,7 +25,7 @@
 
         <div class="form-container">
 
-            <form id="write-review-form" style="" action="http://localhost:3000/api/v1/reviews" method="POST">
+            <form id="write-review-form"  action="http://localhost:3000/api/v1/reviews"  method="POST">
             <h3>Write a review!</h3>
 
             <br><br>
@@ -34,11 +33,11 @@
             <br><br>
 
             <select id="museum-id" name="museum_id">
-            <option value="1">Metropolitan Museum of Art</option>
-            <option value="2">American Museum of Natural History</option>
-            <option value="3">Brooklyn Museum</option>
-            <option value="4">Brooklyn Museum</option>
-            <option value="5">El Museo del Barrio</option>
+            <option value= 1>Metropolitan Museum of Art</option>
+            <option value= 2>American Museum of Natural History</option>
+            <option value= 3>Brooklyn Museum</option>
+            <option value= 4>Queens Museum</option>
+            <option value= 5>El Museo del Barrio</option>
             </select>
 
             <br>
@@ -57,5 +56,7 @@
             </form>
 
         </div>
+        <script type="text/javascript" src="src/review.js"></script>
+        <script type="text/javascript" src="src/index.js"></script>
     </body>
 </html>

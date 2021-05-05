@@ -13,7 +13,7 @@ class Review {
         return `
         <div data-id=${this.id}>
         <img src=${this.img_url} height= "200" width="">
-        <h4>Musuem: ${this.museum}</h4>
+        <h4>Museum: ${this.museum}</h4>
         <h3>Review: ${this.review_post}</h3>
         <h3>Rating: ${this.rating}</h3>
         <button data-id=${this.id}>delete</button>
