@@ -61,7 +61,9 @@ document.addEventListener('DOMContentLoaded', () => {
         .then( review => {
                 const reviewData = review.data.attributes
                 const reviewID = review.data.id
+                
                 const newReview = new Review(reviewID, reviewData)
+
                 document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
                 const refreshForm = document.getElementById('write-review-form') 
                 refreshForm.reset()
