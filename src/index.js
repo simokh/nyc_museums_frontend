@@ -12,18 +12,44 @@ document.addEventListener('DOMContentLoaded', () => {
     
     writeReview.addEventListener("submit", formHandler) 
 
-    dReview.addEventListener("click", deleteHandler)
+    dReview.addEventListener("click", (e) => deleteHandler(e))
+
+    const brookButton = document.getElementById('brooklyn')
+
+    brookButton.addEventListener("click",filBrook)
 
     getReview()
 
 })
+
+     function filBrook(e) {
+        console.log('click')
+
+        const reviews = Review.all.slice()
+        let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art") 
+        filterMuseums.forEach(myFunction)
+     }
+
+        function myFunction(item) {
+            console.log(item)
+            // debugger
+        document.querySelector('#review-container').innerHTML = item.renderReviewPost()
+        document.querySelector('#write-review-form').innerHTML = ""    
+        
+        } 
+
+
     // delete review function fetch request to BE destroy action 
     function deleteHandler(e) { 
         const id = parseInt(e.target.dataset.id);
         const review = Review.findReview(id);
         // debugger
         fetch((`http://localhost:3000/api/v1/reviews/${review.id}`), { 
-            method: "DELETE",    
+            method: "DELETE", 
+            headers: {
+                "content-Type": "application/json",
+                "Accept": "application/json"
+            },
         })
         const ele = document.querySelector('[data-id]')
         dReview.removeChild(ele)
@@ -61,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then( review => {
                 const reviewData = review.data.attributes
                 const reviewID = review.data.id
-                
+
                 const newReview = new Review(reviewID, reviewData)
 
                 document.querySelector('#review-container').innerHTML += newReview.renderReviewPost();
@@ -72,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // indexing reviews 
 function getReview(){
-    fetch(endPoint2)
+    fetch(endPoint2) 
     .then(res => res.json())
     .then(reviews => {
         reviews.data.forEach(review =>{
@@ -98,9 +124,6 @@ function getMuseum() {
     })
 }
 
-
-// var is globaly scoped 
-// let and const are not
 
 // if (true) {
 //     var name = "simo"

@@ -1,5 +1,5 @@
 class Review {
-    
+
     static all = []
 
     constructor(id, reviewAttri) {
@@ -21,7 +21,7 @@ class Review {
         <h4>Museum: ${this.museum}</h4>
         <h3>Review: ${this.review_post}</h3>
         <h3>Rating: ${this.rating}</h3>
-        <button data-id=${this.id}>delete</button>
+        <button id="delete-review" data-id=${this.id}>delete</button>
         </div>
         <br><br>`; 
     }
