@@ -26,17 +26,33 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log('click')
 
         const reviews = Review.all.slice()
-        let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art") 
-        filterMuseums.forEach(myFunction)
+        let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art")
+        document.querySelector('#review-container').innerHTML = ""
+        insertItem(filterMuseums)
+        document.querySelector('#write-review-form').innerHTML = ""
+        console.log("done")
+        // debugger
      }
 
-        function myFunction(item) {
-            console.log(item)
-            // debugger
-        document.querySelector('#review-container').innerHTML = item.renderReviewPost()
-        document.querySelector('#write-review-form').innerHTML = ""    
-        
-        } 
+
+
+     function insertItem(items) {
+        for (let i = 0; i < items.length; i++) {
+            var element = items[i];
+            // console.log(`e ${i}: `, element)
+        document.querySelector('#review-container').innerHTML += element.renderReviewPost()
+     }
+    }
+
+        // function myFunction(item) {
+        //     // array[index] = item 
+        //     console.log(item)
+            
+        // document.querySelector('#review-container').innerHTML = ""
+        // document.querySelector('#review-container').innerHTML = item.renderReviewPost()
+        // document.querySelector('#write-review-form').innerHTML = "" 
+
+        // } 
 
 
     // delete review function fetch request to BE destroy action 
