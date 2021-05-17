@@ -4,56 +4,95 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>NYC Museums</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>NYC Museums</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
 
+  <h1>NYC Museums</h1>
+  <body>
+    <div class="form-container">
+      <form
+        id="write-review-form"
+        action="http://localhost:3000/api/v1/reviews"
+        method="POST"
+      >
+        <h3>Write a review!</h3>
 
-    </head>
+        <br /><br />
+        <textarea
+          id="review-post"
+          name="review_post"
+          rows="8"
+          cols="80"
+          value=""
+          placeholder="Enter your review..."
+        ></textarea>
+        <br />
 
-        
-        <h1>NYC Museums</h1> <button id= 'brooklyn'> Brooklyn </button>  
-    <body>
-        <div id="museum-container"></div>
-        <div id="review-container"></div>
-    
+        Museum:
+        <input type="text" list="museums" />
+        <datalist id="museums">
+          <option>Metropolitan Museum of Art</option>
+          <option>Museum of Natural History</option>
+          <option>Queens Museum</option>
+          <option>Brooklyn of Art</option>
+          <option>Staten Island Museum</option>
+        </datalist>
 
+        <br />
 
-        <div class="form-container">
+        Picture:
+        <input type="text" id="url" />
+        <br />
 
-            <form id="write-review-form"  action="http://localhost:3000/api/v1/reviews"  method="POST">
-            <h3>Write a review!</h3>
+        Borough:
+        <select name="borough" id="borough">
+          <option value="New York">New York</option>
+          <option value="Queens">Queens</option>
+          <option value="Bronx">Bronx</option>
+          <option value="Brooklyn">Brooklyn</option>
+          <option value="Richmond">Richmond</option>
+        </select>
 
-            <br><br>
-            <textarea id='review-post' name="review_post" rows="8" cols="80" value="" placeholder="Enter your review..."></textarea>
-            <br><br>
+        <br />
 
-            <select id="museum-id" name="museum_id">
+        Rating:
+        <select id="rating" name="rating">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+        </select>
+        <br />
 
-            </select>
+        <input
+          id="create-button"
+          type="submit"
+          name="submit"
+          value="Submit a Review"
+          class="submit"
+        />
+      </form>
+    </div>
+    <br />
+    <button id="filter">Metropolitan Museum of Art</button>
+    <button id="sort">Top Rated</button>
+    <br />
+    <div id="museum-container"></div>
+    <br />
+    <div id="review-container"></div>
 
-            <br>
-
-
-            <select id="rating" name="rating">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            </select>
-            <br><br>
-
-            <input id= 'create-button' type="submit" name="submit" value="Submit a Review" class="submit">
-            </form>
-
-        </div>
-        <script type="text/javascript" src="src/review.js"></script>
-        <script type="text/javascript" src="src/index.js"></script>
-    </body>
+    <script type="text/javascript" src="src/review.js"></script>
+    <script type="text/javascript" src="src/index.js"></script>
+  </body>
 </html>

@@ -14,45 +14,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dReview.addEventListener("click", (e) => deleteHandler(e))
 
-    const brookButton = document.getElementById('brooklyn')
+    const brookButton = document.getElementById('filter')
 
     brookButton.addEventListener("click",filBrook)
+
+    const sortButton = document.getElementById('sort')
+
+    sortButton.addEventListener("click", sortRating)
 
     getReview()
 
 })
 
+    function sortRating(e) {
+        console.log("You are clicking")
+        const reviews = Review.all.slice()
+        let sortedReviews = reviews.sort(function (a, b) {
+            return b.rating - a.rating;
+          });
+        // console.log(sortedReviews)
+        document.querySelector('#write-review-form').innerHTML = ""
+        document.querySelector('#review-container').innerHTML = ""
+        sortedItems(sortedReviews)
+        console.log("done")
+    }
+
+    function sortedItems(items) {
+        for (let i = 0; i < items.length; i++) {
+            const element = items[i];
+            // console.log(`e ${i}: `, element)
+            console.log(`e ${i}`, element.rating)
+        document.querySelector('#review-container').innerHTML += element.renderReviewPost()
+     }
+    }
+
      function filBrook(e) {
         console.log('click')
-
         const reviews = Review.all.slice()
         let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art")
         document.querySelector('#review-container').innerHTML = ""
         insertItem(filterMuseums)
         document.querySelector('#write-review-form').innerHTML = ""
         console.log("done")
-        // debugger
      }
 
-
-
+    // iteration over the filtered array 
      function insertItem(items) {
         for (let i = 0; i < items.length; i++) {
-            var element = items[i];
+            const element = items[i];
             // console.log(`e ${i}: `, element)
         document.querySelector('#review-container').innerHTML += element.renderReviewPost()
      }
     }
-
-        // function myFunction(item) {
-        //     // array[index] = item 
-        //     console.log(item)
-            
-        // document.querySelector('#review-container').innerHTML = ""
-        // document.querySelector('#review-container').innerHTML = item.renderReviewPost()
-        // document.querySelector('#write-review-form').innerHTML = "" 
-
-        // } 
 
 
     // delete review function fetch request to BE destroy action 
@@ -113,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 // indexing reviews 
-function getReview(){
+    function getReview(){
     fetch(endPoint2) 
     .then(res => res.json())
     .then(reviews => {
@@ -122,10 +135,10 @@ function getReview(){
             document.querySelector('#review-container').innerHTML += newReview.renderReviewPost()
         })       
     })     
-}
+    }
 
 
-function getMuseum() {
+    function getMuseum() {
     fetch(endPoint)
     .then(res => res.json())
     .then(museums => {
