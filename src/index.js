@@ -14,58 +14,58 @@ document.addEventListener('DOMContentLoaded', () => {
 
     dReview.addEventListener("click", (e) => deleteHandler(e))
 
-    const brookButton = document.getElementById('filter')
+    // const brookButton = document.getElementById('filter')
 
-    brookButton.addEventListener("click",filBrook)
+    // brookButton.addEventListener("click",filBrook)
 
-    const sortButton = document.getElementById('sort')
+    // const sortButton = document.getElementById('sort')
 
-    sortButton.addEventListener("click", sortRating)
+    // sortButton.addEventListener("click", sortRating)
 
     getReview()
 
 })
 
-    function sortRating(e) {
-        console.log("You are clicking")
-        const reviews = Review.all.slice()
-        let sortedReviews = reviews.sort(function (a, b) {
-            return b.rating - a.rating;
-          });
-        // console.log(sortedReviews)
-        document.querySelector('#write-review-form').innerHTML = ""
-        document.querySelector('#review-container').innerHTML = ""
-        sortedItems(sortedReviews)
-        console.log("done")
-    }
+    // function sortRating(e) {
+    //     console.log("You are clicking")
+    //     const reviews = Review.all.slice()
+    //     let sortedReviews = reviews.sort(function (a, b) {
+    //         return b.rating - a.rating;
+    //       });
+    //     // console.log(sortedReviews)
+    //     document.querySelector('#write-review-form').innerHTML = ""
+    //     document.querySelector('#review-container').innerHTML = ""
+    //     sortedItems(sortedReviews)
+    //     console.log("done")
+    // }
 
-    function sortedItems(items) {
-        for (let i = 0; i < items.length; i++) {
-            const element = items[i];
-            // console.log(`e ${i}: `, element)
-            console.log(`e ${i}`, element.rating)
-        document.querySelector('#review-container').innerHTML += element.renderReviewPost()
-     }
-    }
+    // function sortedItems(items) {
+    //     for (let i = 0; i < items.length; i++) {
+    //         const element = items[i];
+    //         // console.log(`e ${i}: `, element)
+    //         console.log(`e ${i}`, element.rating)
+    //     document.querySelector('#review-container').innerHTML += element.renderReviewPost()
+    //  }
+    // }
 
-     function filBrook(e) {
-        console.log('click')
-        const reviews = Review.all.slice()
-        let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art")
-        document.querySelector('#review-container').innerHTML = ""
-        insertItem(filterMuseums)
-        document.querySelector('#write-review-form').innerHTML = ""
-        console.log("done")
-     }
+    //  function filBrook(e) {
+    //     console.log('click')
+    //     const reviews = Review.all.slice()
+    //     let filterMuseums = reviews.filter(rev => rev.museum === "Metropolitan Museum of Art")
+    //     document.querySelector('#review-container').innerHTML = ""
+    //     insertItem(filterMuseums)
+    //     document.querySelector('#write-review-form').innerHTML = ""
+    //     console.log("done")
+    //  }
 
-    // iteration over the filtered array 
-     function insertItem(items) {
-        for (let i = 0; i < items.length; i++) {
-            const element = items[i];
-            // console.log(`e ${i}: `, element)
-        document.querySelector('#review-container').innerHTML += element.renderReviewPost()
-     }
-    }
+    // // iteration over the filtered array 
+    //  function insertItem(items) {
+    //     for (let i = 0; i < items.length; i++) {
+    //         const element = items[i];
+    //         // console.log(`e ${i}: `, element)
+    //     document.querySelector('#review-container').innerHTML += element.renderReviewPost()
+    //  }
+    // }
 
 
     // delete review function fetch request to BE destroy action 
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log("yo you are clicking!")
         const reviewInput = document.querySelector('#review-post').value
         const rate = document.querySelector('#rating').value
-        const museum_id= document.querySelector('#museum-id').value
+        const museum_id= document.querySelector('#museum_id').value
         const ratingInput = parseInt(rate)
         const museumInput = parseInt(museum_id)  
 
@@ -144,13 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(museums => {
     //         // debugger
         museums.data.forEach(museum =>  {
-            const mus = document.getElementById('museum-id')
+            const mus = document.getElementById('museum_id')
             const ele = document.createElement('option')
             ele.value = museum.id 
             ele.innerText = museum.attributes.name
             mus.append(ele)
         })
     })
+
+
 }
 
 
